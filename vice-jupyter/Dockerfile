@@ -111,6 +111,9 @@ RUN echo -e "deb https://s3.amazonaws.com/repo.deb.cyberduck.io stable main" | t
 RUN echo LANG="en_US.UTF-8" > /etc/default/locale
 RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen
 
+# Install and configure jupyter lab.
+COPY jupyter_notebook_config.json /opt/conda/etc/jupyter/jupyter_notebook_config.json
+
 # Rebuild the Jupyter Lab with new tools
 RUN jupyter lab build
 
