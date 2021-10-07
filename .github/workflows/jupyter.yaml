@@ -30,7 +30,7 @@ jobs:
       # A matrix of Dockerfile paths and associated tags
       # Dockerfile in root builds to tag latest
       matrix:
-        dockerfile: [[ubuntu-jupyter/Dockerfile,sha-]]
+        dockerfile: [[ubuntu-jupyter/Dockerfile,sha-], [vice-jupyter/Dockerfile, vice-sha-]]
     steps:
       - name: Get short SHA
         id: shorty
