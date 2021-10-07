@@ -79,6 +79,7 @@ RUN pip install --quiet --no-cache-dir dask-labextension && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+WORKDIR /root/work/
 
 # Dask Scheduler & Bokeh ports
 EXPOSE 8787
