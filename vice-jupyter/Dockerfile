@@ -1,4 +1,4 @@
-FROM harbor.cyverse.org/vice/jupyterlab/geospatial:2.2.9
+FROM harbor.cyverse.org/vice/jupyter/geospatial:2.2.9
 
 USER root
 
