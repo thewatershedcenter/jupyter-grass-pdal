@@ -1,15 +1,12 @@
 name: Build & Deploy ubuntu-jupyter container
 on:
-  # We'll trigger this workflow when a PR is submitted to make sure
-  # your application still builds successfully with the new commits.
+  # Trigger this workflow when a PR is submitted 
   pull_request: []
-  # We'll also trigger this workflow when you want to deploy your container.
-  # This means any push to main. You might want to do a release trigger.
+  # Trigger this workflow on deploy  container.
   push:
     branches:
       - main
-  # Let's also trigger a build and publish of your container when 
-  # you release a new version. You can use "created" here instead of published.
+  # Also trigger a build and publish of container when on version release 
   release:
     types: [created]
 
@@ -17,9 +14,7 @@ jobs:
   deploy-images:
     runs-on: ubuntu-latest 
 
-    # Define your registry and repository here.
-    # These are for the GitHub Container registry, you can also use
-    # Quay.io or another OCI registry
+    # Define registry and repository.
     env:
       registry: quay.io
       username: kulpojke
@@ -28,7 +23,6 @@ jobs:
       # Even if one docker container build fails we want the others to continue.
       fail-fast: false
       # A matrix of Dockerfile paths and associated tags
-      # Dockerfile in root builds to tag latest
       matrix:
         dockerfile: [[ubuntu-jupyter/Dockerfile,sha-], [vice-jupyter/Dockerfile, vice-sha-]]
     steps:
@@ -69,10 +63,6 @@ jobs:
           registry: ${{ env.registry }}
           username: ${{ env.username }}+wrtc_robot 
           password: ${{ secrets.ROBOT_TOKEN }}
-
-          # Example variables for a non GitHub registry like Quay or Docker Hub
-          # username: ${{ secrets.DOCKERHUB_USERNAME }}
-          # password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Deploy ${{ matrix.dockerfile[1] }}
         # And Don't log push the container on a pull request.
